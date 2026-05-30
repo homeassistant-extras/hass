@@ -11,9 +11,15 @@ on:
         description: 'Release title (optional)'
         required: false
         type: string
+      publish_npm:
+        description: 'Publish to GitHub Packages'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
+  packages: write
 
 jobs:
   manual-release:
@@ -22,8 +28,9 @@ jobs:
 
     steps:
       - name: 'Checkout source code'
-        uses: 'actions/checkout@v3'
+        uses: 'actions/checkout@v4'
         with:
+          ref: ${{ inputs.tag_name }}
           fetch-depth: 0
 
       - name: 'Determine release type'
@@ -38,13 +45,23 @@ jobs:
           fi
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '24'
+          registry-url: https://npm.pkg.github.com
+          scope: '@homeassistant-extras'
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Build
-        run: yarn build
+
+      - name: Run CI checks
+        run: yarn ci
+
+      - name: Publish package
+        if: inputs.publish_npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate release notes
         id: create-release-notes
@@ -56,7 +73,6 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           makeLatest: true
-          artifacts: 'dist/**'
           generateReleaseNotes: true
           tag: ${{ inputs.tag_name }}
           name: ${{ inputs.release_title || format('{0} - {1} from {2}', inputs.tag_name, steps.release-type.outputs.release_type, github.ref_name) }}

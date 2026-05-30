@@ -1,5 +1,5 @@
 {
-  "name": "@homeassistant-extras/hass-core",
+  "name": "@homeassistant-extras/hass",
   "version": "0.0.1",
   "author": {
     "name": "Patrick Masters",
@@ -9,7 +9,10 @@
   "description": "Vendored Home Assistant frontend and websocket types/helpers for custom cards.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/homeassistant-extras/hass-core.git"
+    "url": "git+https://github.com/homeassistant-extras/hass.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "exports": {
     "./*": "./src/*"
@@ -22,6 +25,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
+    "ci": "yarn typecheck && yarn test",
     "pass": "yarn format && yarn typecheck && yarn lint && yarn test",
     "typecheck": "tsc --noEmit && tsc -p tsconfig.test.json --noEmit",
     "test": "TS_NODE_PROJECT='./tsconfig.test.json' mocha",
