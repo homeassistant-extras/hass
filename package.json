@@ -1,6 +1,6 @@
 {
   "name": "@homeassistant-extras/hass",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "Patrick Masters",
     "url": "https://github.com/homeassistant-extras"
