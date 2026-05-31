@@ -2,35 +2,35 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/data/lovelace/config/action.ts
  */
 
-import type { HassServiceTarget } from '@hass/ws/types';
+import type { HassServiceTarget } from "@hass/ws/types";
 
 export interface CallServiceActionConfig extends BaseActionConfig {
-  action: 'call-service';
+  action: "call-service";
   service?: string;
   target?: HassServiceTarget;
   service_data?: Record<string, unknown>;
 }
 
 export interface MoreInfoActionConfig extends BaseActionConfig {
-  action: 'more-info';
+  action: "more-info";
 }
 
 export interface NavigateActionConfig extends BaseActionConfig {
-  action: 'navigate';
+  action: "navigate";
   navigation_path: string;
 }
 
 export interface UrlActionConfig extends BaseActionConfig {
-  action: 'url';
+  action: "url";
   url_path: string;
 }
 
 export interface ToggleActionConfig extends BaseActionConfig {
-  action: 'toggle';
+  action: "toggle";
 }
 
 export interface NoActionConfig extends BaseActionConfig {
-  action: 'none';
+  action: "none";
 }
 
 export interface BaseActionConfig {

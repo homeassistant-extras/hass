@@ -7,6 +7,7 @@ export type SubscriptionUnsubscribe = () => void;
 export type MessageBase = {
   id?: number;
   type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- upstream HA websocket
   [key: string]: any;
 };
 

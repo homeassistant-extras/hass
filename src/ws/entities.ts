@@ -2,12 +2,13 @@
  * https://github.com/home-assistant/home-assistant-js-websocket/blob/master/lib/entities.ts
  */
 
-import type { Context } from '@hass/ws/types';
+import type { Context } from "@hass/ws/types";
 
 export interface EntityState {
   /** state */
   s: string;
   /** attributes */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- upstream HA websocket
   a: { [key: string]: any };
   /** context */
   c: Context | string;
@@ -24,9 +25,9 @@ interface EntityStateRemove {
 
 export interface EntityDiff {
   /** additions */
-  '+'?: Partial<EntityState>;
+  "+"?: Partial<EntityState>;
   /** subtractions */
-  '-'?: EntityStateRemove;
+  "-"?: EntityStateRemove;
 }
 
 export interface StatesUpdates {

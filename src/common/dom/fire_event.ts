@@ -33,6 +33,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- upstream HA event map extension point
   interface HASSDomEvents {}
 }
 
@@ -76,6 +77,7 @@ export const fireEvent = <HassEvent extends ValidHassDomEvent>(
   },
 ) => {
   options = options || {};
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment -- upstream HA
   // @ts-ignore
   detail = detail === null || detail === undefined ? {} : detail;
   const event = new Event(type, {
@@ -83,6 +85,7 @@ export const fireEvent = <HassEvent extends ValidHassDomEvent>(
     cancelable: Boolean(options.cancelable),
     composed: options.composed === undefined ? true : options.composed,
   });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- upstream HA Event detail
   (event as any).detail = detail;
   node.dispatchEvent(event);
   return event;

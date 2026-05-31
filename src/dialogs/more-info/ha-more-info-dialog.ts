@@ -4,5 +4,6 @@
 
 export interface MoreInfoDialogParams {
   entityId: string | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- upstream HA
   data?: Record<string, any>;
 }
