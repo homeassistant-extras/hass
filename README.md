@@ -94,6 +94,7 @@ Source tree under `src/`:
 src/
 ├── types.ts                              # HomeAssistant, registries, connection
 ├── common/
+│   ├── config/feature.ts
 │   ├── dom/fire_event.ts
 │   ├── entity/compute_object_id.ts
 │   ├── entity/compute_state_name.ts
@@ -104,17 +105,32 @@ src/
 │   ├── entity/entity_registry.ts
 │   ├── lovelace/config/action.ts
 │   └── selector.ts
+├── delegates/
+│   ├── entities/                         # entity-subscription core
+│   │   ├── subscribe-entities.ts
+│   │   └── subscriptions/                # per-connection subscribe_entities manager
+│   └── retrievers/
+│       ├── state.ts                      # getState
+│       ├── device.ts                     # getDevice
+│       └── entity.ts                     # getEntity
 ├── dialogs/more-info/ha-more-info-dialog.ts
+├── helpers/card-helpers.ts               # cached loadCardHelpers() wrapper
+├── mixins/                               # Lit class mixins for card elements
+│   ├── constructor.ts
+│   ├── hass-config-mixin.ts
+│   └── subscribe-entity-state-mixin.ts
 ├── panels/lovelace/
 │   ├── common/compute-tooltip.ts
 │   ├── editor/hui-element-editor.ts
 │   ├── elements/types.ts
 │   └── entity-rows/types.ts
+├── render/                               # Lit render helpers for entity state
+│   ├── state-display.ts
+│   ├── state-icon.ts
+│   ├── state-label.ts
+│   ├── state-icon-label.ts
+│   └── create-hui-element.ts
 ├── state/more-info-mixin.ts
-├── delegates/retrievers/
-│   ├── state.ts                          # getState
-│   ├── device.ts                         # getDevice
-│   └── entity.ts                         # getEntity
 └── ws/
     ├── entities.ts
     └── types.ts

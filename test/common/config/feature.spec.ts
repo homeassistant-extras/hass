@@ -21,7 +21,10 @@ describe("feature", () => {
 
   it("should return true when feature is present in config.features", () => {
     expect(
-      hasFeature({ features: ["percentage", "exclude_default_entities"] }, "percentage"),
+      hasFeature(
+        { features: ["percentage", "exclude_default_entities"] },
+        "percentage",
+      ),
     ).to.be.true;
   });
 
