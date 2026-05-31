@@ -78,12 +78,11 @@ jobs:
           git push --tags
 
   publish-npm:
-    name: 'Publish to GitHub Packages'
+    name: 'Publish to npm'
     needs: bump-version
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
 
     steps:
       - uses: actions/checkout@v4
@@ -94,8 +93,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          registry-url: https://npm.pkg.github.com
-          scope: '@homeassistant-extras'
+          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -104,9 +102,9 @@ jobs:
         run: yarn ci
 
       - name: Publish package
-        run: npm publish
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   create-release:
     name: 'Create Release'

@@ -12,14 +12,13 @@ on:
         required: false
         type: string
       publish_npm:
-        description: 'Publish to GitHub Packages'
+        description: 'Publish to npm'
         required: false
         type: boolean
         default: true
 
 permissions:
   contents: write
-  packages: write
 
 jobs:
   manual-release:
@@ -48,8 +47,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '24'
-          registry-url: https://npm.pkg.github.com
-          scope: '@homeassistant-extras'
+          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -59,9 +57,9 @@ jobs:
 
       - name: Publish package
         if: inputs.publish_npm
-        run: npm publish
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Generate release notes
         id: create-release-notes
