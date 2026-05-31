@@ -6,6 +6,7 @@
     "url": "https://github.com/homeassistant-extras"
   },
   "license": "ISC",
+  "prettier": "@homeassistant-extras/config/prettier",
   "description": "Vendored Home Assistant frontend and websocket types/helpers for custom cards.",
   "repository": {
     "type": "git",
@@ -47,7 +48,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@homeassistant-extras/config": "^0.1.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/chai": "^5.2.3",
     "@types/jsdom": "^28.0.3",
     "@types/mocha": "^10.0.10",
@@ -55,8 +58,8 @@
     "chai": "^6.2.2",
     "eslint": "^10.4.1",
     "globals": "^17.6.0",
-    "lit": "^3.3.2",
     "jsdom": "^29.1.1",
+    "lit": "^3.3.2",
     "mocha": "^11.7.6",
     "nyc": "^18.0.0",
     "prettier": "3.8.3",

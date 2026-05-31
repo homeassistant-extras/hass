@@ -1,12 +1,12 @@
-import { getEntitySubscriptionManager } from "../../../../src/delegates/entities/subscriptions";
-import type { HomeAssistant } from "../../../../src/types";
-import { expect } from "chai";
-import { useFakeTimers } from "sinon";
+import { expect } from 'chai';
+import { useFakeTimers } from 'sinon';
+import { getEntitySubscriptionManager } from '../../../../src/delegates/entities/subscriptions';
+import type { HomeAssistant } from '../../../../src/types';
 
 const RESUBSCRIBE_DEBOUNCE_MS = 50;
 
-describe("EntitySubscriptionManager", () => {
-  it("returns same manager for same connection", () => {
+describe('EntitySubscriptionManager', () => {
+  it('returns same manager for same connection', () => {
     const conn = { subscribeMessage: () => Promise.resolve(() => {}) };
     const hass = {
       connection: conn,
@@ -19,7 +19,7 @@ describe("EntitySubscriptionManager", () => {
     expect(m1).to.equal(m2);
   });
 
-  it("returns different managers for different connections", () => {
+  it('returns different managers for different connections', () => {
     const hass1 = {
       connection: { subscribeMessage: () => Promise.resolve(() => {}) },
       states: {},
@@ -35,7 +35,7 @@ describe("EntitySubscriptionManager", () => {
     expect(m1).to.not.equal(m2);
   });
 
-  it("batches multiple entities into one subscription", async () => {
+  it('batches multiple entities into one subscription', async () => {
     const clock = useFakeTimers();
     let capturedMsg: unknown = null;
     const subscribeMessage = (_cb: (ev: unknown) => void, msg: unknown) => {
@@ -45,28 +45,28 @@ describe("EntitySubscriptionManager", () => {
     const hass = {
       connection: { subscribeMessage },
       states: {
-        "light.a": { entity_id: "light.a", state: "on", attributes: {} },
-        "light.b": { entity_id: "light.b", state: "off", attributes: {} },
+        'light.a': { entity_id: 'light.a', state: 'on', attributes: {} },
+        'light.b': { entity_id: 'light.b', state: 'off', attributes: {} },
       },
     } as unknown as HomeAssistant;
 
     const manager = getEntitySubscriptionManager(hass);
-    const unsub1 = manager.subscribe("light.a", () => {});
+    const unsub1 = manager.subscribe('light.a', () => {});
     clock.tick(RESUBSCRIBE_DEBOUNCE_MS);
     await Promise.resolve();
 
     expect(capturedMsg).to.deep.equal({
-      type: "subscribe_entities",
-      entity_ids: ["light.a"],
+      type: 'subscribe_entities',
+      entity_ids: ['light.a'],
     });
 
-    const unsub2 = manager.subscribe("light.b", () => {});
+    const unsub2 = manager.subscribe('light.b', () => {});
     clock.tick(RESUBSCRIBE_DEBOUNCE_MS);
     await Promise.resolve();
 
     expect(capturedMsg).to.deep.equal({
-      type: "subscribe_entities",
-      entity_ids: ["light.a", "light.b"],
+      type: 'subscribe_entities',
+      entity_ids: ['light.a', 'light.b'],
     });
 
     unsub1();
@@ -74,7 +74,7 @@ describe("EntitySubscriptionManager", () => {
     clock.restore();
   });
 
-  it("deduplicates listeners for same entity", async () => {
+  it('deduplicates listeners for same entity', async () => {
     const clock = useFakeTimers();
     let capturedMsg: unknown = null;
     const subscribeMessage = (_cb: (ev: unknown) => void, msg: unknown) => {
@@ -84,19 +84,19 @@ describe("EntitySubscriptionManager", () => {
     const hass = {
       connection: { subscribeMessage },
       states: {
-        "light.x": { entity_id: "light.x", state: "on", attributes: {} },
+        'light.x': { entity_id: 'light.x', state: 'on', attributes: {} },
       },
     } as unknown as HomeAssistant;
 
     const manager = getEntitySubscriptionManager(hass);
-    manager.subscribe("light.x", () => {});
-    manager.subscribe("light.x", () => {});
+    manager.subscribe('light.x', () => {});
+    manager.subscribe('light.x', () => {});
     clock.tick(RESUBSCRIBE_DEBOUNCE_MS);
     await Promise.resolve();
 
     expect(capturedMsg).to.deep.equal({
-      type: "subscribe_entities",
-      entity_ids: ["light.x"],
+      type: 'subscribe_entities',
+      entity_ids: ['light.x'],
     });
     clock.restore();
   });

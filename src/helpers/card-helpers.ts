@@ -1,11 +1,11 @@
 import type {
   LovelaceElement,
   LovelaceElementConfig,
-} from "../panels/lovelace/elements/types";
+} from '../panels/lovelace/elements/types';
 import type {
   LovelaceRow,
   LovelaceRowConfig,
-} from "../panels/lovelace/entity-rows/types";
+} from '../panels/lovelace/entity-rows/types';
 
 declare global {
   var loadCardHelpers: (() => Promise<CardHelpers>) | undefined;
@@ -22,7 +22,7 @@ let _helpersPromise: Promise<CardHelpers> | undefined;
 /** Clears singleton state (unit tests only). */
 export function resetPoatCardHelpersForTests(): void {
   _helpersPromise = undefined;
-  Reflect.deleteProperty(globalThis, "poatCardHelpers");
+  Reflect.deleteProperty(globalThis, 'poatCardHelpers');
 }
 
 export function setPoatCardHelpers(helpers: CardHelpers): void {
@@ -47,7 +47,7 @@ export function resolvePoatCardHelpers(
 
   if (!loader) {
     return Promise.reject(
-      new Error("[custom-card] helpers: missing globalThis.loadCardHelpers"),
+      new Error('[custom-card] helpers: missing globalThis.loadCardHelpers'),
     );
   }
 

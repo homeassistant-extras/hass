@@ -2,7 +2,7 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/entity-rows/types.ts
  */
 
-import type { HomeAssistant } from "../../../types";
+import type { HomeAssistant } from '../../../types';
 
 export type LovelaceRowConfig = {
   entity?: string;

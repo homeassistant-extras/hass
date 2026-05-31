@@ -1,7 +1,7 @@
-import type { HomeAssistant } from "../types";
-import { nothing } from "lit";
-import { HOLD_AND_DOUBLE_TAP_NONE } from "./constants";
-import { createHuiElement } from "./create-hui-element";
+import { nothing } from 'lit';
+import type { HomeAssistant } from '../types';
+import { HOLD_AND_DOUBLE_TAP_NONE } from './constants';
+import { createHuiElement } from './create-hui-element';
 
 /**
  * Renders a `hui-state-label-element` via HA's `createHuiElement`.
@@ -18,7 +18,7 @@ export function stateLabel(
   }
 
   return createHuiElement(hass, {
-    type: "state-label",
+    type: 'state-label',
     entity: entityId,
     ...HOLD_AND_DOUBLE_TAP_NONE,
   });

@@ -42,7 +42,7 @@ Frontend types track the upstream `dev` branch; `ws/` tracks home-assistant-js-w
 The non-vendored / org-specific logic lives in a few layers:
 
 - **`src/delegates/retrievers/`** — `getState`, `getDevice`, `getEntity`. `getState` deliberately
-  returns a *narrowed* `HassEntity` (`entity_id`, `state`, `attributes`, `last_changed` only);
+  returns a _narrowed_ `HassEntity` (`entity_id`, `state`, `attributes`, `last_changed` only);
   extra runtime fields on `hass.states` are stripped.
 
 - **`src/delegates/entities/subscriptions/`** — the entity-subscription core. `EntitySubscriptionManager`

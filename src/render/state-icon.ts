@@ -1,7 +1,7 @@
-import type { ActionConfig } from "../data/lovelace/config/action";
-import type { HomeAssistant } from "../types";
-import type { nothing } from "lit";
-import { createHuiElement } from "./create-hui-element";
+import type { nothing } from 'lit';
+import type { ActionConfig } from '../data/lovelace/config/action';
+import type { HomeAssistant } from '../types';
+import { createHuiElement } from './create-hui-element';
 
 export interface StateIconOptions {
   /** When true, tints the icon from the entity state. */
@@ -29,7 +29,7 @@ export function stateIcon(
     options;
 
   return createHuiElement(hass, {
-    type: "state-icon",
+    type: 'state-icon',
     entity: entityId,
     ...(state_color !== undefined && { state_color }),
     ...(icon !== undefined && { icon }),

@@ -1,6 +1,6 @@
-import type { HomeAssistant } from "../types";
-import type { HassEntity } from "../ws/types";
-import { html, type TemplateResult } from "lit";
+import { html, type TemplateResult } from 'lit';
+import type { HomeAssistant } from '../types';
+import type { HassEntity } from '../ws/types';
 
 /**
  * Renders a state display for a given entity.

@@ -1,9 +1,9 @@
-import type { LitElement } from "lit";
-import { state } from "lit/decorators.js";
-import { getEntitySubscriptionManager } from "../delegates/entities/subscriptions";
-import type { HassEntity, SubscriptionUnsubscribe } from "../ws/types";
-import type { Constructor } from "./constructor";
-import type { HassConfigInterface } from "./hass-config-mixin";
+import type { LitElement } from 'lit';
+import { state } from 'lit/decorators.js';
+import { getEntitySubscriptionManager } from '../delegates/entities/subscriptions';
+import type { HassEntity, SubscriptionUnsubscribe } from '../ws/types';
+import type { Constructor } from './constructor';
+import type { HassConfigInterface } from './hass-config-mixin';
 
 export type SubscribeEntityStateElement<TConfig = unknown> =
   HassConfigInterface<TConfig>;

@@ -2,7 +2,7 @@
  * https://github.com/home-assistant/home-assistant-js-websocket/blob/master/lib/entities.ts
  */
 
-import type { Context } from "./types";
+import type { Context } from './types';
 
 export interface EntityState {
   /** state */
@@ -25,9 +25,9 @@ interface EntityStateRemove {
 
 export interface EntityDiff {
   /** additions */
-  "+"?: Partial<EntityState>;
+  '+'?: Partial<EntityState>;
   /** subtractions */
-  "-"?: EntityStateRemove;
+  '-'?: EntityStateRemove;
 }
 
 export interface StatesUpdates {

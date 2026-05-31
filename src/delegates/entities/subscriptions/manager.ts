@@ -5,13 +5,13 @@
  * @see https://developers.home-assistant.io/docs/api/websocket#subscribe_entities
  */
 
-import type { HomeAssistant } from "../../../types";
-import type { StatesUpdates } from "../../../ws/entities";
-import type { HassEntity } from "../../../ws/types";
-import { ResubscribeScheduler } from "./resubscribe-scheduler";
-import { StatesEventHandler, type Listener } from "./states-event-handler";
+import type { HomeAssistant } from '../../../types';
+import type { StatesUpdates } from '../../../ws/entities';
+import type { HassEntity } from '../../../ws/types';
+import { ResubscribeScheduler } from './resubscribe-scheduler';
+import { StatesEventHandler, type Listener } from './states-event-handler';
 
-type Connection = HomeAssistant["connection"];
+type Connection = HomeAssistant['connection'];
 
 const managers = new Map<Connection, EntitySubscriptionManager>();
 
@@ -96,7 +96,7 @@ export class EntitySubscriptionManager {
     const version = ++this._resubscribeVersion;
     void connection
       .subscribeMessage((ev: StatesUpdates) => this._handleEvent(ev), {
-        type: "subscribe_entities",
+        type: 'subscribe_entities',
         entity_ids: entityIds,
       })
       .then((unsub) => {

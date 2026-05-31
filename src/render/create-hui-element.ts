@@ -1,10 +1,10 @@
-import { getPoatCardHelpers } from "../helpers/card-helpers";
+import { nothing } from 'lit';
+import { getPoatCardHelpers } from '../helpers/card-helpers';
 import type {
   LovelaceElement,
   LovelaceElementConfig,
-} from "../panels/lovelace/elements/types";
-import type { HomeAssistant } from "../types";
-import { nothing } from "lit";
+} from '../panels/lovelace/elements/types';
+import type { HomeAssistant } from '../types';
 
 /**
  * Creates a Lovelace HUI element via HA's loaded card helpers.

@@ -1,8 +1,8 @@
-import type { HomeAssistant } from "../types";
-import { html, nothing, type TemplateResult } from "lit";
-import { HOLD_AND_DOUBLE_TAP_NONE } from "./constants";
-import { stateIcon } from "./state-icon";
-import { stateLabel } from "./state-label";
+import { html, nothing, type TemplateResult } from 'lit';
+import type { HomeAssistant } from '../types';
+import { HOLD_AND_DOUBLE_TAP_NONE } from './constants';
+import { stateIcon } from './state-icon';
+import { stateLabel } from './state-label';
 
 export interface StateIconLabelOptions {
   /** When true, tints the icon from the entity state. */

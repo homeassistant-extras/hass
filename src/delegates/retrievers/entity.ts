@@ -1,5 +1,5 @@
-import type { EntityRegistryDisplayEntry } from "../../data/entity/entity_registry";
-import type { HomeAssistant } from "../../types";
+import type { EntityRegistryDisplayEntry } from '../../data/entity/entity_registry';
+import type { HomeAssistant } from '../../types';
 
 /**
  * Retrieves an entity registry entry from `hass.entities`.

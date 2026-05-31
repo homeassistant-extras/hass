@@ -1,6 +1,6 @@
-import type { HomeAssistant } from "../types";
-import type { LitElement } from "lit";
-import type { Constructor } from "./constructor";
+import type { LitElement } from 'lit';
+import type { HomeAssistant } from '../types';
+import type { Constructor } from './constructor';
 
 export interface HassConfigInterface<TConfig = unknown> {
   hass: HomeAssistant;

@@ -2,7 +2,7 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/components/ha-form/types.ts
  */
 
-import type { Selector } from "../../data/selector";
+import type { Selector } from '../../data/selector';
 
 export type HaFormSchema = HaFormSelector | HaFormExpandableSchema;
 
@@ -13,7 +13,7 @@ export interface HaFormBaseSchema {
 }
 
 export interface HaFormExpandableSchema extends HaFormBaseSchema {
-  type: "expandable";
+  type: 'expandable';
   flatten?: boolean;
   icon?: string;
   schema: readonly HaFormSchema[];

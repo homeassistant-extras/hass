@@ -1,5 +1,8 @@
 {
-  "require": ["ts-node/register", "./mocha.setup.ts"],
+  "require": [
+    "ts-node/register",
+    "@homeassistant-extras/config/mocha/setup.library"
+  ],
   "extensions": ["ts"],
   "spec": ["test/**/*.spec.ts"],
   "watch-files": ["src/**/*.ts", "test/**/*.spec.ts"]

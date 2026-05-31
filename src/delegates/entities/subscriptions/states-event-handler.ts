@@ -2,19 +2,19 @@
  * Handles subscribe_entities WebSocket events (add, remove, change).
  */
 
-import { getState } from "../../retrievers/state";
-import type { HomeAssistant } from "../../../types";
+import type { HomeAssistant } from '../../../types';
 import type {
   EntityDiff,
   EntityState as HassEntityState,
   StatesUpdates,
-} from "../../../ws/entities";
-import type { HassEntity } from "../../../ws/types";
+} from '../../../ws/entities';
+import type { HassEntity } from '../../../ws/types';
+import { getState } from '../../retrievers/state';
 import {
   applyDiff,
   compressedToEntityState,
   isMeaningfulChange,
-} from "../subscribe-entities";
+} from '../subscribe-entities';
 
 export type Listener = (state: HassEntity | undefined) => void;
 

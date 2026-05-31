@@ -8,11 +8,11 @@
 import type {
   EntityDiff,
   EntityState as HassEntityState,
-} from "../../ws/entities";
-import type { HassEntity } from "../../ws/types";
+} from '../../ws/entities';
+import type { HassEntity } from '../../ws/types';
 
-const COMPRESSED_STATE = "s";
-const COMPRESSED_ATTRIBUTES = "a";
+const COMPRESSED_STATE = 's';
+const COMPRESSED_ATTRIBUTES = 'a';
 
 export function compressedToEntityState(
   entityId: string,
@@ -27,8 +27,8 @@ export function compressedToEntityState(
 }
 
 export function isMeaningfulChange(diff: EntityDiff): boolean {
-  const add = diff["+"];
-  const remove = diff["-"];
+  const add = diff['+'];
+  const remove = diff['-'];
   return (
     add?.[COMPRESSED_STATE] !== undefined ||
     add?.[COMPRESSED_ATTRIBUTES] !== undefined ||
@@ -41,8 +41,8 @@ export function applyDiff(
   entityId: string,
   diff: EntityDiff,
 ): HassEntity {
-  const add = diff["+"];
-  const remove = diff["-"];
+  const add = diff['+'];
+  const remove = diff['-'];
   let state = current.state;
   let last_changed = current.last_changed;
   const attributes = { ...current.attributes };

@@ -1,5 +1,5 @@
-import type { DeviceRegistryEntry } from "../../data/device/device_registry";
-import type { HomeAssistant } from "../../types";
+import type { DeviceRegistryEntry } from '../../data/device/device_registry';
+import type { HomeAssistant } from '../../types';
 
 /**
  * Retrieves a device from `hass.devices`.

@@ -2,8 +2,8 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/elements/types.ts
  */
 
-import type { ActionConfig } from "../../../data/lovelace/config/action";
-import type { HomeAssistant } from "../../../types";
+import type { ActionConfig } from '../../../data/lovelace/config/action';
+import type { HomeAssistant } from '../../../types';
 
 export interface LovelaceElementConfig {
   type: string;

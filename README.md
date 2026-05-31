@@ -40,16 +40,16 @@ When developing a card alongside this repo in the same workspace:
 Import from the package name. Paths mirror the published `dist/` layout (same as `src/`):
 
 ```typescript
-import type { HomeAssistant } from "@homeassistant-extras/hass/types";
-import type { DeviceRegistryEntry } from "@homeassistant-extras/hass/data/device/device_registry";
-import type { EntityRegistryDisplayEntry } from "@homeassistant-extras/hass/data/entity/entity_registry";
-import type { HassEntity } from "@homeassistant-extras/hass/ws/types";
-import { fireEvent } from "@homeassistant-extras/hass/common/dom/fire_event";
-import { computeTooltip } from "@homeassistant-extras/hass/panels/lovelace/common/compute-tooltip";
-import type { HaFormSchema } from "@homeassistant-extras/hass/components/ha-form/types";
-import { getDevice } from "@homeassistant-extras/hass/delegates/retrievers/device";
-import { getEntity } from "@homeassistant-extras/hass/delegates/retrievers/entity";
-import { getState } from "@homeassistant-extras/hass/delegates/retrievers/state";
+import type { HomeAssistant } from '@homeassistant-extras/hass/types';
+import type { DeviceRegistryEntry } from '@homeassistant-extras/hass/data/device/device_registry';
+import type { EntityRegistryDisplayEntry } from '@homeassistant-extras/hass/data/entity/entity_registry';
+import type { HassEntity } from '@homeassistant-extras/hass/ws/types';
+import { fireEvent } from '@homeassistant-extras/hass/common/dom/fire_event';
+import { computeTooltip } from '@homeassistant-extras/hass/panels/lovelace/common/compute-tooltip';
+import type { HaFormSchema } from '@homeassistant-extras/hass/components/ha-form/types';
+import { getDevice } from '@homeassistant-extras/hass/delegates/retrievers/device';
+import { getEntity } from '@homeassistant-extras/hass/delegates/retrievers/entity';
+import { getState } from '@homeassistant-extras/hass/delegates/retrievers/state';
 ```
 
 `getState` returns a narrowed `HassEntity` with only `entity_id`, `state`, `attributes`, and `last_changed` — extra runtime fields on `hass.states` are stripped.
@@ -57,8 +57,8 @@ import { getState } from "@homeassistant-extras/hass/delegates/retrievers/state"
 Side-effect imports:
 
 ```typescript
-import "@homeassistant-extras/hass/panels/lovelace/editor/hui-element-editor";
-import "@homeassistant-extras/hass/state/more-info-mixin";
+import '@homeassistant-extras/hass/panels/lovelace/editor/hui-element-editor';
+import '@homeassistant-extras/hass/state/more-info-mixin';
 ```
 
 No `tsconfig` path alias is required. The package publishes compiled ESM (`.js`) and declarations (`.d.ts`) under `dist/`.

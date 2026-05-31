@@ -2,9 +2,9 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/common/compute-tooltip.ts
  */
 
-import { computeStateName } from "../../../common/entity/compute_state_name";
-import type { ActionConfig } from "../../../data/lovelace/config/action";
-import type { HomeAssistant } from "../../../types";
+import { computeStateName } from '../../../common/entity/compute_state_name';
+import type { ActionConfig } from '../../../data/lovelace/config/action';
+import type { HomeAssistant } from '../../../types';
 
 interface Config {
   entity?: string;
@@ -20,42 +20,42 @@ function computeActionTooltip(
   config: ActionConfig,
   isHold: boolean,
 ) {
-  if (!config || !config.action || config.action === "none") {
-    return "";
+  if (!config || !config.action || config.action === 'none') {
+    return '';
   }
 
   let tooltip = isHold
-    ? hass.localize("ui.panel.lovelace.cards.picture-elements.hold")
-    : hass.localize("ui.panel.lovelace.cards.picture-elements.tap");
+    ? hass.localize('ui.panel.lovelace.cards.picture-elements.hold')
+    : hass.localize('ui.panel.lovelace.cards.picture-elements.tap');
 
   switch (config.action) {
-    case "navigate":
+    case 'navigate':
       tooltip += ` ${hass.localize(
-        "ui.panel.lovelace.cards.picture-elements.navigate_to",
+        'ui.panel.lovelace.cards.picture-elements.navigate_to',
         { location: config.navigation_path },
       )}`;
       break;
-    case "url":
+    case 'url':
       tooltip += ` ${hass.localize(
-        "ui.panel.lovelace.cards.picture-elements.url",
+        'ui.panel.lovelace.cards.picture-elements.url',
         { url_path: config.url_path },
       )}`;
       break;
-    case "toggle":
+    case 'toggle':
       tooltip += ` ${hass.localize(
-        "ui.panel.lovelace.cards.picture-elements.toggle",
+        'ui.panel.lovelace.cards.picture-elements.toggle',
         { name: state },
       )}`;
       break;
-    case "call-service":
+    case 'call-service':
       tooltip += `${hass.localize(
-        "ui.panel.lovelace.cards.picture-elements.perform_action",
+        'ui.panel.lovelace.cards.picture-elements.perform_action',
         { name: config.service },
       )}`;
       break;
-    case "more-info":
+    case 'more-info':
       tooltip += `${hass.localize(
-        "ui.panel.lovelace.cards.picture-elements.more_info",
+        'ui.panel.lovelace.cards.picture-elements.more_info',
         { name: state },
       )}`;
       break;
@@ -66,14 +66,14 @@ function computeActionTooltip(
 
 export const computeTooltip = (hass: HomeAssistant, config: Config): string => {
   if (config.title === null) {
-    return "";
+    return '';
   }
 
   if (config.title) {
     return config.title;
   }
 
-  let stateName = "";
+  let stateName = '';
 
   if (config.entity) {
     stateName =
@@ -88,12 +88,12 @@ export const computeTooltip = (hass: HomeAssistant, config: Config): string => {
 
   const tapTooltip = config.tap_action
     ? computeActionTooltip(hass, stateName, config.tap_action, false)
-    : "";
+    : '';
   const holdTooltip = config.hold_action
     ? computeActionTooltip(hass, stateName, config.hold_action, true)
-    : "";
+    : '';
 
-  const newline = tapTooltip && holdTooltip ? "\n" : "";
+  const newline = tapTooltip && holdTooltip ? '\n' : '';
 
   return tapTooltip + newline + holdTooltip;
 };

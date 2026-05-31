@@ -1,5 +1,5 @@
-import type { HomeAssistant } from "../../types";
-import type { HassEntity } from "../../ws/types";
+import type { HomeAssistant } from '../../types';
+import type { HassEntity } from '../../ws/types';
 
 /**
  * Retrieves the state of an entity from `hass.states`.

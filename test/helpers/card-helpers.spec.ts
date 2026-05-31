@@ -1,44 +1,44 @@
+import { expect } from 'chai';
+import { stub } from 'sinon';
 import {
   getPoatCardHelpers,
   resetPoatCardHelpersForTests,
   resolvePoatCardHelpers,
   setPoatCardHelpers,
   type CardHelpers,
-} from "../../src/helpers/card-helpers";
-import { expect } from "chai";
-import { stub } from "sinon";
+} from '../../src/helpers/card-helpers';
 
-describe("card-helpers.ts", () => {
+describe('card-helpers.ts', () => {
   afterEach(() => {
     resetPoatCardHelpersForTests();
   });
 
-  it("reject when loader is missing", async () => {
+  it('reject when loader is missing', async () => {
     try {
       await resolvePoatCardHelpers(undefined);
-      expect.fail("expected rejection");
+      expect.fail('expected rejection');
     } catch (e) {
       expect(e).to.be.instanceOf(Error);
       expect((e as Error).message).to.equal(
-        "[custom-card] helpers: missing globalThis.loadCardHelpers",
+        '[custom-card] helpers: missing globalThis.loadCardHelpers',
       );
     }
   });
 
-  it("setPoatCardHelpers / getPoatCardHelpers round-trip", () => {
+  it('setPoatCardHelpers / getPoatCardHelpers round-trip', () => {
     const helpers = {
-      createRowElement: () => document.createElement("div"),
-      createHuiElement: () => document.createElement("div"),
+      createRowElement: () => document.createElement('div'),
+      createHuiElement: () => document.createElement('div'),
     } as unknown as CardHelpers;
 
     setPoatCardHelpers(helpers);
     expect(getPoatCardHelpers()).to.equal(helpers);
   });
 
-  it("resolvePoatCardHelpers shares one in-flight load across callers", async () => {
+  it('resolvePoatCardHelpers shares one in-flight load across callers', async () => {
     const mockHelpers = {
-      createRowElement: () => document.createElement("div"),
-      createHuiElement: () => document.createElement("div"),
+      createRowElement: () => document.createElement('div'),
+      createHuiElement: () => document.createElement('div'),
     } as unknown as CardHelpers;
 
     let finish!: (h: CardHelpers) => void;
@@ -61,17 +61,17 @@ describe("card-helpers.ts", () => {
     expect(b).to.equal(mockHelpers);
   });
 
-  it("resolvePoatCardHelpers returns immediately when helpers already set", async () => {
+  it('resolvePoatCardHelpers returns immediately when helpers already set', async () => {
     const mockHelpers = {
-      createRowElement: () => document.createElement("div"),
-      createHuiElement: () => document.createElement("div"),
+      createRowElement: () => document.createElement('div'),
+      createHuiElement: () => document.createElement('div'),
     } as unknown as CardHelpers;
 
     setPoatCardHelpers(mockHelpers);
 
     const loader = stub().resolves({
-      createRowElement: () => document.createElement("span"),
-      createHuiElement: () => document.createElement("span"),
+      createRowElement: () => document.createElement('span'),
+      createHuiElement: () => document.createElement('span'),
     } as unknown as CardHelpers);
 
     const result = await resolvePoatCardHelpers(loader);

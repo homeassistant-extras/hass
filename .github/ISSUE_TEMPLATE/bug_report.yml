@@ -1,6 +1,6 @@
 name: Bug report
 description: Report unexpected behavior, errors, or visual problems with this custom card
-title: "[Bug] "
+title: '[Bug] '
 type: bug
 labels:
   - bug
@@ -53,7 +53,7 @@ body:
     attributes:
       label: Home Assistant version
       description: e.g. 2029.3.1 — find in **Settings → About**.
-      placeholder: "2029.3.1"
+      placeholder: '2029.3.1'
     validations:
       required: true
 

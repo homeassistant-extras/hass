@@ -1,6 +1,6 @@
 name: Other
 description: Questions, documentation, releases, or anything that is not clearly a bug or feature
-title: "[Question] "
+title: '[Question] '
 labels:
   - question
 body:

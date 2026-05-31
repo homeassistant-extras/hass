@@ -1,9 +1,9 @@
-import { ResubscribeScheduler } from "../../../../src/delegates/entities/subscriptions";
-import { expect } from "chai";
-import { useFakeTimers } from "sinon";
+import { expect } from 'chai';
+import { useFakeTimers } from 'sinon';
+import { ResubscribeScheduler } from '../../../../src/delegates/entities/subscriptions';
 
-describe("ResubscribeScheduler", () => {
-  it("runs callback after debounce delay", () => {
+describe('ResubscribeScheduler', () => {
+  it('runs callback after debounce delay', () => {
     const clock = useFakeTimers();
     const scheduler = new ResubscribeScheduler();
     let called = false;
@@ -16,7 +16,7 @@ describe("ResubscribeScheduler", () => {
     clock.restore();
   });
 
-  it("debounces: rapid schedule() calls run fn only once", () => {
+  it('debounces: rapid schedule() calls run fn only once', () => {
     const clock = useFakeTimers();
     const scheduler = new ResubscribeScheduler();
     let count = 0;
@@ -28,7 +28,7 @@ describe("ResubscribeScheduler", () => {
     clock.restore();
   });
 
-  it("cancel() prevents callback from firing", () => {
+  it('cancel() prevents callback from firing', () => {
     const clock = useFakeTimers();
     const scheduler = new ResubscribeScheduler();
     let called = false;
