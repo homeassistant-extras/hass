@@ -14,11 +14,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "paths": {
-      "@hass/*": ["./src/*"],
-      "@test/*": ["./test/*"]
-    }
+    "noImplicitOverride": true
   },
   "include": ["src/**/*.ts"]
 }

@@ -2,7 +2,7 @@
  * https://github.com/home-assistant/home-assistant-js-websocket/blob/master/lib/entities.ts
  */
 
-import type { Context } from "@hass/ws/types";
+import type { Context } from "./types";
 
 export interface EntityState {
   /** state */

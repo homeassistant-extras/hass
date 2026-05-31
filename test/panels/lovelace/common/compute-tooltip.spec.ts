@@ -1,5 +1,5 @@
-import { computeTooltip } from "@hass/panels/lovelace/common/compute-tooltip";
-import type { HomeAssistant } from "@hass/types";
+import { computeTooltip } from "../../../../src/panels/lovelace/common/compute-tooltip";
+import type { HomeAssistant } from "../../../../src/types";
 import { expect } from "chai";
 
 describe("compute-tooltip.ts", () => {

@@ -2,7 +2,7 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/data/lovelace/config/action.ts
  */
 
-import type { HassServiceTarget } from "@hass/ws/types";
+import type { HassServiceTarget } from "../../../ws/types";
 
 export interface CallServiceActionConfig extends BaseActionConfig {
   action: "call-service";

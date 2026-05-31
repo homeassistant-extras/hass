@@ -6,9 +6,10 @@ const dom = new JSDOM("<!DOCTYPE html><html><body></body></html>", {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-global.window = dom.window as any;
-global.document = dom.window.document;
-global.HTMLElement = dom.window.HTMLElement;
-global.Node = dom.window.Node;
+globalThis.window = dom.window as any;
+globalThis.document = dom.window.document;
+globalThis.HTMLElement = dom.window.HTMLElement;
+globalThis.Node = dom.window.Node;
+globalThis.customElements = dom.window.customElements;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (globalThis as any).dispatchEvent = dom.window.dispatchEvent.bind(dom.window);

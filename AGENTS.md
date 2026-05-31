@@ -6,7 +6,7 @@ This package contains copied or adapted Home Assistant frontend types, helpers, 
 - Keep copied files matching upstream 100% when they are vendored from Home Assistant.
 - If a local change is unavoidable, document why it diverges from upstream.
 - Prefer copying the smallest needed upstream surface instead of inventing parallel types.
-- Use `@hass/*` import paths within this package.
+- Use relative imports within this package (`src/`).
 
 ## Upstream sources
 

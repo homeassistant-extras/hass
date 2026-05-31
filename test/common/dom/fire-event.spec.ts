@@ -1,5 +1,5 @@
-import { fireEvent } from "@hass/common/dom/fire_event";
-import type { ConfigChangedEvent } from "@hass/panels/lovelace/editor/hui-element-editor";
+import { fireEvent } from "../../../src/common/dom/fire_event";
+import type { ConfigChangedEvent } from "../../../src/panels/lovelace/editor/hui-element-editor";
 import { expect } from "chai";
 import { stub } from "sinon";
 

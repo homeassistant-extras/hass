@@ -1,4 +1,4 @@
-import { computeObjectId } from "@hass/common/entity/compute_object_id";
+import { computeObjectId } from "../../../src/common/entity/compute_object_id";
 import { expect } from "chai";
 
 describe("compute_object_id.ts", () => {

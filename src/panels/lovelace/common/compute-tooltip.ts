@@ -2,9 +2,9 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/common/compute-tooltip.ts
  */
 
-import { computeStateName } from "@hass/common/entity/compute_state_name";
-import type { ActionConfig } from "@hass/data/lovelace/config/action";
-import type { HomeAssistant } from "@hass/types";
+import { computeStateName } from "../../../common/entity/compute_state_name";
+import type { ActionConfig } from "../../../data/lovelace/config/action";
+import type { HomeAssistant } from "../../../types";
 
 interface Config {
   entity?: string;

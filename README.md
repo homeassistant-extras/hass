@@ -37,103 +37,90 @@ When developing a card alongside this repo in the same workspace:
 
 ## Usage in a custom card
 
-### TypeScript path alias
-
-Card projects typically import via `@hass/*`. Add a path mapping in `tsconfig.json` (and `tsconfig.test.json` if you run Mocha with `tsconfig-paths`):
-
-**From npm:**
-
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@hass/*": ["./node_modules/@homeassistant-extras/hass/src/*"]
-    }
-  }
-}
-```
-
-**From a local checkout:**
-
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@hass/*": ["../hass/src/*"]
-    }
-  }
-}
-```
-
-Ensure your test runner registers path aliases (e.g. `tsconfig-paths/register` in `.mocharc.json`).
-
-### Import examples
+Import from the package name. Paths mirror the published `dist/` layout (same as `src/`):
 
 ```typescript
-import type { HomeAssistant } from "@hass/types";
-import type { DeviceRegistryEntry } from "@hass/data/device/device_registry";
-import type { EntityRegistryDisplayEntry } from "@hass/data/entity/entity_registry";
-import type { HassEntity } from "@hass/ws/types";
-import { fireEvent } from "@hass/common/dom/fire_event";
-import { computeTooltip } from "@hass/panels/lovelace/common/compute-tooltip";
-import type { HaFormSchema } from "@hass/components/ha-form/types";
+import type { HomeAssistant } from "@homeassistant-extras/hass/types";
+import type { DeviceRegistryEntry } from "@homeassistant-extras/hass/data/device/device_registry";
+import type { EntityRegistryDisplayEntry } from "@homeassistant-extras/hass/data/entity/entity_registry";
+import type { HassEntity } from "@homeassistant-extras/hass/ws/types";
+import { fireEvent } from "@homeassistant-extras/hass/common/dom/fire_event";
+import { computeTooltip } from "@homeassistant-extras/hass/panels/lovelace/common/compute-tooltip";
+import type { HaFormSchema } from "@homeassistant-extras/hass/components/ha-form/types";
+import { getDevice } from "@homeassistant-extras/hass/delegates/retrievers/device";
+import { getEntity } from "@homeassistant-extras/hass/delegates/retrievers/entity";
+import { getState } from "@homeassistant-extras/hass/delegates/retrievers/state";
 ```
 
-Side-effect imports (Lit element registration) work the same way:
+`getState` returns a narrowed `HassEntity` with only `entity_id`, `state`, `attributes`, and `last_changed` — extra runtime fields on `hass.states` are stripped.
+
+Side-effect imports:
 
 ```typescript
-import "@hass/panels/lovelace/editor/hui-element-editor";
-import "@hass/state/more-info-mixin";
+import "@homeassistant-extras/hass/panels/lovelace/editor/hui-element-editor";
+import "@homeassistant-extras/hass/state/more-info-mixin";
 ```
+
+No `tsconfig` path alias is required. The package publishes compiled ESM (`.js`) and declarations (`.d.ts`) under `dist/`.
 
 ### Package exports
 
-`package.json` exposes source files directly:
-
-```json
-"exports": {
-  "./*": "./src/*"
-}
-```
-
-Subpaths resolve to TypeScript source under `src/` (e.g. `@homeassistant-extras/hass/types` → `src/types.ts`). Card repos usually prefer the `@hass/*` alias for shorter imports and parity with in-repo conventions.
+| Import                                                   | Resolves to                           |
+| -------------------------------------------------------- | ------------------------------------- |
+| `@homeassistant-extras/hass/types`                       | `dist/types.js` + `dist/types.d.ts`   |
+| `@homeassistant-extras/hass/ws/types`                    | `dist/ws/types.js`                    |
+| `@homeassistant-extras/hass/data/entity/entity_registry` | `dist/data/entity/entity_registry.js` |
 
 ## Package layout
 
 ```
 hass/
-├── src/
-│   ├── types.ts                          # HomeAssistant, registries, connection
+├── src/                                  # TypeScript source (development)
+├── dist/                                 # Published build output (ESM + .d.ts)
+│   ├── types.js
 │   ├── common/
-│   │   ├── dom/fire_event.ts             # fireEvent helper
-│   │   ├── entity/
-│   │   │   ├── compute_object_id.ts
-│   │   │   └── compute_state_name.ts
-│   │   └── translations/localize.ts      # LocalizeFunc
-│   ├── components/
-│   │   └── ha-form/types.ts              # HaFormSchema and related types
 │   ├── data/
-│   │   ├── device/device_registry.ts     # DeviceRegistryEntry
-│   │   ├── entity/entity_registry.ts     # EntityRegistryDisplayEntry
-│   │   ├── lovelace/config/action.ts     # ActionConfig, Lovelace actions
-│   │   └── selector.ts
-│   ├── dialogs/
-│   │   └── more-info/ha-more-info-dialog.ts
 │   ├── panels/lovelace/
-│   │   ├── common/compute-tooltip.ts
-│   │   ├── editor/hui-element-editor.ts  # Lovelace element editor (Lit)
-│   │   ├── elements/types.ts             # LovelaceElementConfig
-│   │   └── entity-rows/types.ts          # LovelaceRowConfig
-│   ├── state/more-info-mixin.ts
 │   └── ws/
-│       ├── entities.ts                   # subscribeEntities, state updates
-│       └── types.ts                      # HassEntity, Connection, etc.
 ├── test/                                 # Mocha specs (mirrors src/)
-├── AGENTS.md                             # Upstream sync guidelines for contributors
+├── tsconfig.build.json                   # Build config → dist/
+├── AGENTS.md
 └── package.json
 ```
 
-Within this package, internal imports use `@hass/*` (see `tsconfig.json` `paths`).
+Source tree under `src/`:
+
+```
+src/
+├── types.ts                              # HomeAssistant, registries, connection
+├── common/
+│   ├── dom/fire_event.ts
+│   ├── entity/compute_object_id.ts
+│   ├── entity/compute_state_name.ts
+│   └── translations/localize.ts
+├── components/ha-form/types.ts
+├── data/
+│   ├── device/device_registry.ts
+│   ├── entity/entity_registry.ts
+│   ├── lovelace/config/action.ts
+│   └── selector.ts
+├── dialogs/more-info/ha-more-info-dialog.ts
+├── panels/lovelace/
+│   ├── common/compute-tooltip.ts
+│   ├── editor/hui-element-editor.ts
+│   ├── elements/types.ts
+│   └── entity-rows/types.ts
+├── state/more-info-mixin.ts
+├── delegates/retrievers/
+│   ├── state.ts                          # getState
+│   ├── device.ts                         # getDevice
+│   └── entity.ts                         # getEntity
+└── ws/
+    ├── entities.ts
+    └── types.ts
+```
+
+Internal imports use relative paths within `src/`.
 
 ## Upstream sources
 
@@ -153,14 +140,15 @@ When adding or updating vendored files, copy the smallest surface needed, preser
 
 ### Scripts
 
-| Command                       | Description                       |
-| ----------------------------- | --------------------------------- |
-| `yarn install`                | Install dependencies              |
-| `yarn typecheck`              | TypeScript check (`src` + `test`) |
-| `yarn test`                   | Run Mocha tests                   |
-| `yarn ci`                     | CI gate: typecheck + test         |
-| `yarn pass`                   | Format, typecheck, lint, test     |
-| `yarn lint` / `yarn lint:fix` | ESLint                            |
+| Command                       | Description                              |
+| ----------------------------- | ---------------------------------------- |
+| `yarn install`                | Install dependencies                     |
+| `yarn build`                  | Compile `src/` → `dist/` (ESM + `.d.ts`) |
+| `yarn typecheck`              | TypeScript check (`src` + `test`)        |
+| `yarn test`                   | Run Mocha tests                          |
+| `yarn ci`                     | CI gate: build + typecheck + test        |
+| `yarn pass`                   | Format, CI, lint                         |
+| `yarn lint` / `yarn lint:fix` | ESLint                                   |
 
 ### Tests
 

@@ -1,8 +1,8 @@
 import {
   computeStateName,
   computeStateNameFromEntityAttributes,
-} from "@hass/common/entity/compute_state_name";
-import type { HassEntity } from "@hass/ws/types";
+} from "../../../src/common/entity/compute_state_name";
+import type { HassEntity } from "../../../src/ws/types";
 import { expect } from "chai";
 
 describe("compute_state_name.ts", () => {

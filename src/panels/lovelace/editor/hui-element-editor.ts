@@ -2,7 +2,7 @@
  * https://github.com/home-assistant/frontend/blob/dev/src/panels/lovelace/editor/hui-element-editor.ts
  */
 
-import type { ActionConfig } from "@hass/data/lovelace/config/action";
+import type { ActionConfig } from "../../../data/lovelace/config/action";
 
 export type UiAction = ActionConfig["action"];
 
