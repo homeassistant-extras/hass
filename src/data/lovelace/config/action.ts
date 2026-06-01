@@ -33,6 +33,10 @@ export interface NoActionConfig extends BaseActionConfig {
   action: 'none';
 }
 
+export interface CustomActionConfig extends BaseActionConfig {
+  action: 'fire-dom-event';
+}
+
 export interface BaseActionConfig {
   action: string;
 }
@@ -43,4 +47,5 @@ export type ActionConfig =
   | NavigateActionConfig
   | UrlActionConfig
   | ToggleActionConfig
-  | NoActionConfig;
+  | NoActionConfig
+  | CustomActionConfig;

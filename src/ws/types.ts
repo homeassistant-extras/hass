@@ -2,7 +2,7 @@
  * https://github.com/home-assistant/home-assistant-js-websocket/blob/master/lib/types.ts
  */
 
-export type SubscriptionUnsubscribe = () => void;
+export type UnsubscribeFunc = () => void;
 
 export type MessageBase = {
   id?: number;
@@ -44,5 +44,5 @@ export interface Connection {
       resubscribe?: boolean;
       preCheck?: () => boolean | Promise<boolean>;
     },
-  ): Promise<SubscriptionUnsubscribe>;
+  ): Promise<UnsubscribeFunc>;
 }

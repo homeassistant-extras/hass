@@ -95,16 +95,24 @@ src/
 ├── types.ts                              # HomeAssistant, registries, connection
 ├── common/
 │   ├── config/feature.ts
+│   ├── array/literal-includes.ts
+│   ├── const.ts
 │   ├── dom/fire_event.ts
+│   ├── entity/compute_domain.ts
 │   ├── entity/compute_object_id.ts
 │   ├── entity/compute_state_name.ts
+│   ├── entity/state_active.ts
+│   ├── string/capitalize-first-letter.ts
 │   └── translations/localize.ts
 ├── components/ha-form/types.ts
 ├── data/
 │   ├── device/device_registry.ts
+│   ├── entity/entity.ts
 │   ├── entity/entity_registry.ts
+│   ├── integration.ts
 │   ├── lovelace/config/action.ts
-│   └── selector.ts
+│   ├── selector.ts
+│   └── ws-templates.ts
 ├── delegates/
 │   ├── entities/                         # entity-subscription core
 │   │   ├── subscribe-entities.ts
@@ -115,9 +123,12 @@ src/
 │       └── entity.ts                     # getEntity
 ├── dialogs/more-info/ha-more-info-dialog.ts
 ├── helpers/card-helpers.ts               # cached loadCardHelpers() wrapper
+├── html/                                 # DOM / row render helpers
+│   └── entity-row.ts
 ├── mixins/                               # Lit class mixins for card elements
 │   ├── constructor.ts
 │   ├── hass-config-mixin.ts
+│   ├── hass-update-mixin.ts
 │   └── subscribe-entity-state-mixin.ts
 ├── panels/lovelace/
 │   ├── common/compute-tooltip.ts

@@ -10,20 +10,21 @@ describe('device.ts', () => {
       devices: {
         'device-123': {
           id: 'device-123',
+          config_entries: ['config-123'],
           identifiers: [['litterrobot', 'device-123']],
-          name: 'Living Room Light',
-          model: 'LR5',
-          serial_number: 'LR5-12345',
-          area_id: 'area-123',
           manufacturer: 'Whisker',
-        } as HomeAssistant['devices'][string] & {
-          area_id: string;
-          manufacturer: string;
+          model: 'LR5',
+          model_id: 'model-123',
+          name: 'Living Room Light',
+          name_by_user: 'user name',
+          serial_number: 'LR5-12345',
         },
       },
       entities: {},
       states: {},
+      language: 'en',
       localize: () => '',
+      callWS: () => undefined as never,
       connection: {} as HomeAssistant['connection'],
     };
   });
@@ -32,17 +33,15 @@ describe('device.ts', () => {
     it('returns only DeviceRegistryEntry fields', () => {
       expect(getDevice(mockHass, 'device-123')).to.deep.equal({
         id: 'device-123',
+        config_entries: ['config-123'],
         identifiers: [['litterrobot', 'device-123']],
-        name: 'Living Room Light',
+        manufacturer: 'Whisker',
         model: 'LR5',
+        model_id: 'model-123',
+        name: 'Living Room Light',
+        name_by_user: 'user name',
         serial_number: 'LR5-12345',
       });
-    });
-
-    it('strips extra runtime properties from hass.devices', () => {
-      const result = getDevice(mockHass, 'device-123');
-      expect(result).to.not.have.property('area_id');
-      expect(result).to.not.have.property('manufacturer');
     });
 
     it('returns undefined when not found', () => {

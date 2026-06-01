@@ -1,3 +1,6 @@
+// our owncustom events for type checking
+import '../../events/hass-update';
+
 /**
  * https://github.com/home-assistant/frontend/blob/dev/src/common/dom/fire_event.ts
  */

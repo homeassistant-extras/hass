@@ -8,15 +8,11 @@ const entity = (
   name: string,
   state = 'on',
   attributes: Record<string, unknown> = {},
-  extra: Partial<HassEntity> = {},
-): HassEntity & Record<string, unknown> => ({
+): HassEntity => ({
   entity_id: `${domain}.${name}`,
   state,
   attributes,
   last_changed: new Date().toISOString(),
-  last_updated: 'ignored',
-  context: { id: '1', user_id: null, parent_id: null },
-  ...extra,
 });
 
 describe('state.ts', () => {
@@ -29,7 +25,9 @@ describe('state.ts', () => {
       },
       entities: {},
       devices: {},
+      language: 'en',
       localize: () => '',
+      callWS: () => undefined as never,
       connection: {} as HomeAssistant['connection'],
     };
   });
@@ -40,22 +38,7 @@ describe('state.ts', () => {
     });
 
     it('returns undefined for missing entity id', () => {
-      expect(getState(mockHass, undefined)).to.be.undefined;
-    });
-
-    it('returns only HassEntity fields', () => {
-      expect(getState(mockHass, 'light.test')).to.deep.equal({
-        entity_id: 'light.test',
-        state: 'on',
-        attributes: {},
-        last_changed: mockHass.states['light.test']!.last_changed,
-      });
-    });
-
-    it('strips extra runtime properties from hass.states', () => {
-      const result = getState(mockHass, 'light.test');
-      expect(result).to.not.have.property('last_updated');
-      expect(result).to.not.have.property('context');
+      expect(getState(mockHass)).to.be.undefined;
     });
   });
 });

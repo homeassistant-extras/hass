@@ -1,7 +1,7 @@
 import type { LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
 import { getEntitySubscriptionManager } from '../delegates/entities/subscriptions';
-import type { HassEntity, SubscriptionUnsubscribe } from '../ws/types';
+import type { HassEntity, UnsubscribeFunc } from '../ws/types';
 import type { Constructor } from './constructor';
 import type { HassConfigInterface } from './hass-config-mixin';
 
@@ -57,7 +57,7 @@ export const SubscribeEntityStateMixin = <
      * Active subscriptions, keyed by entity_id. The keys of this map are the
      * set of entities we are currently subscribed to.
      */
-    private readonly _unsubscribes = new Map<string, SubscriptionUnsubscribe>();
+    private readonly _unsubscribes = new Map<string, UnsubscribeFunc>();
 
     /**
      * Single-entity convenience. When set, this entity is watched and its value
