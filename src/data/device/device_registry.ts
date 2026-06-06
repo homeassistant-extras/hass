@@ -10,6 +10,7 @@ export interface DeviceRegistryEntry {
   model: string | null;
   model_id: string | null;
   name: string | null;
+  area_id?: string | null;
   name_by_user: string | null;
   serial_number: string | null;
 }

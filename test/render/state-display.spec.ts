@@ -3,18 +3,14 @@ import { render, type TemplateResult } from 'lit';
 import { stateDisplay } from '../../src/render/state-display';
 import type { HomeAssistant } from '../../src/types';
 import type { HassEntity } from '../../src/ws/types';
+import { createState as s } from '../test-helpers';
 
 describe('stateDisplay.ts', () => {
   let mockHass: HomeAssistant;
   let mockEntity: HassEntity;
 
   beforeEach(() => {
-    mockEntity = {
-      entity_id: 'sensor.test',
-      state: '42',
-      attributes: {},
-      last_changed: '2024-01-01T00:00:00.000Z',
-    };
+    mockEntity = s('sensor.test', '42');
 
     mockHass = {
       states: {

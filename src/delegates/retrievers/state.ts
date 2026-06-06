@@ -18,5 +18,6 @@ export const getState = (
     state: state.state,
     attributes: state.attributes,
     last_changed: state.last_changed,
+    last_updated: state.last_updated,
   };
 };

@@ -1,5 +1,5 @@
-import '@homeassistant-extras/hass/state/more-info-mixin';
 import { fireEvent } from '../common/dom/fire_event';
+import '../state/more-info-mixin';
 
 /**
  * Opens the Home Assistant more-info dialog for an entity.

@@ -1,19 +1,7 @@
 import { expect } from 'chai';
 import { getState } from '../../../src/delegates/retrievers/state';
 import type { HomeAssistant } from '../../../src/types';
-import type { HassEntity } from '../../../src/ws/types';
-
-const entity = (
-  domain: string,
-  name: string,
-  state = 'on',
-  attributes: Record<string, unknown> = {},
-): HassEntity => ({
-  entity_id: `${domain}.${name}`,
-  state,
-  attributes,
-  last_changed: new Date().toISOString(),
-});
+import { createState as s } from '../../test-helpers';
 
 describe('state.ts', () => {
   let mockHass: HomeAssistant;
@@ -21,7 +9,7 @@ describe('state.ts', () => {
   beforeEach(() => {
     mockHass = {
       states: {
-        'light.test': entity('light', 'test'),
+        'light.test': s('light.test', 'on'),
       },
       entities: {},
       devices: {},
@@ -29,7 +17,7 @@ describe('state.ts', () => {
       localize: () => '',
       callWS: () => undefined as never,
       connection: {} as HomeAssistant['connection'],
-    };
+    } as unknown as HomeAssistant;
   });
 
   describe('getState', () => {
@@ -39,6 +27,16 @@ describe('state.ts', () => {
 
     it('returns undefined for missing entity id', () => {
       expect(getState(mockHass)).to.be.undefined;
+    });
+
+    it('returns narrowed state fields for a known entity', () => {
+      expect(getState(mockHass, 'light.test')).to.deep.equal({
+        entity_id: 'light.test',
+        state: 'on',
+        attributes: {},
+        last_changed: mockHass.states['light.test']!.last_changed,
+        last_updated: mockHass.states['light.test']!.last_updated,
+      });
     });
   });
 });

@@ -23,6 +23,7 @@ export function compressedToEntityState(
     state: comp.s,
     attributes: comp.a ?? {},
     last_changed: new Date(comp.lc * 1000).toISOString(),
+    last_updated: new Date(comp.lu * 1000).toISOString(),
   };
 }
 
@@ -45,12 +46,14 @@ export function applyDiff(
   const remove = diff['-'];
   let state = current.state;
   let last_changed = current.last_changed;
+  let last_updated = current.last_updated;
   const attributes = { ...current.attributes };
 
   if (add) {
     if (add.s !== undefined) state = add.s;
     if (add.a) Object.assign(attributes, add.a);
     if (add.lc) last_changed = new Date(add.lc * 1000).toISOString();
+    if (add.lu) last_updated = new Date(add.lu * 1000).toISOString();
   }
   if (remove?.a) {
     for (const key of remove.a) delete attributes[key];
@@ -61,5 +64,6 @@ export function applyDiff(
     state,
     attributes,
     last_changed,
+    last_updated,
   };
 }

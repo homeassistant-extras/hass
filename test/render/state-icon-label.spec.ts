@@ -1,10 +1,14 @@
 import { expect } from 'chai';
 import { html, nothing, render, type TemplateResult } from 'lit';
 import { stub } from 'sinon';
-import type { CardHelpers } from '../../dist/helpers/card-helpers.js';
-import { stateIconLabel } from '../../dist/render/state-icon-label.js';
-import { stateLabel } from '../../dist/render/state-label.js';
-import type { HomeAssistant } from '../../dist/types.js';
+import {
+  resetPoatCardHelpersForTests,
+  setPoatCardHelpers,
+  type CardHelpers,
+} from '../../src/helpers/card-helpers';
+import { stateIconLabel } from '../../src/render/state-icon-label';
+import { stateLabel } from '../../src/render/state-label';
+import type { HomeAssistant } from '../../src/types';
 
 describe('state-icon-label render helpers', () => {
   interface MockHuiElement extends HTMLElement {
@@ -24,7 +28,7 @@ describe('state-icon-label render helpers', () => {
       createRowElement: stub().returns(document.createElement('div')),
       createHuiElement: mockCreateHuiElement,
     };
-    globalThis.poatCardHelpers = helpers;
+    setPoatCardHelpers(helpers);
 
     mockHass = {
       connection: {
@@ -34,7 +38,7 @@ describe('state-icon-label render helpers', () => {
   });
 
   afterEach(() => {
-    Reflect.deleteProperty(globalThis, 'poatCardHelpers');
+    resetPoatCardHelpersForTests();
   });
 
   it('returns nothing when hass or entity is missing', () => {
@@ -43,7 +47,7 @@ describe('state-icon-label render helpers', () => {
   });
 
   it('returns nothing when card helpers are not resolved', () => {
-    Reflect.deleteProperty(globalThis, 'poatCardHelpers');
+    resetPoatCardHelpersForTests();
 
     expect(stateIconLabel(mockHass, 'sensor.weight')).to.equal(nothing);
     expect(mockCreateHuiElement.called).to.be.false;
@@ -89,6 +93,11 @@ describe('state-icon-label render helpers', () => {
 
     expect(root.querySelector('.chip')).to.be.null;
     expect(root.firstElementChild?.childElementCount).to.equal(2);
+  });
+
+  it('stateLabel returns nothing when hass or entity is missing', () => {
+    expect(stateLabel(undefined, 'sensor.test')).to.equal(nothing);
+    expect(stateLabel(mockHass, undefined)).to.equal(nothing);
   });
 
   it('stateLabel creates a state-label element', () => {

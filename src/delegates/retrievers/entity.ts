@@ -13,7 +13,13 @@ export const getEntity = (
 
   return {
     entity_id: entity.entity_id,
+    name: entity.name,
     device_id: entity.device_id,
+    area_id: entity.area_id,
+    labels: entity.labels,
+    hidden: entity.hidden,
+    entity_category: entity.entity_category,
     translation_key: entity.translation_key,
+    platform: entity.platform,
   };
 };

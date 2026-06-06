@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { LitElement } from 'lit';
-import { stub, useFakeTimers } from 'sinon';
+import { stub, useFakeTimers, type SinonFakeTimers } from 'sinon';
 import { HassConfigMixin } from '../../src/mixins/hass-config-mixin';
 import { SubscribeEntityStateMixin } from '../../src/mixins/subscribe-entity-state-mixin';
 import type { HomeAssistant } from '../../src/types';
@@ -18,6 +18,12 @@ describe('SubscribeEntityStateMixin', () => {
   let capturedCallback: ((ev: unknown) => void) | null;
   let capturedMessage: { entity_ids?: string[] } | null;
   let elementCounter = 0;
+  let clock: SinonFakeTimers | null = null;
+
+  afterEach(() => {
+    clock?.restore();
+    clock = null;
+  });
 
   beforeEach(() => {
     unsubscribeSpy = stub();
@@ -67,7 +73,7 @@ describe('SubscribeEntityStateMixin', () => {
   // --- single-entity convenience (entity / state) ---------------------------
 
   it('should subscribe via the single entity convenience', async () => {
-    const clock = useFakeTimers();
+    clock = useFakeTimers();
     element.hass = hass;
     element['entity'] = 'light.bedroom';
 
@@ -77,11 +83,10 @@ describe('SubscribeEntityStateMixin', () => {
 
     expect(capturedCallback).to.not.be.null;
     expect(capturedMessage!.entity_ids).to.have.members(['light.bedroom']);
-    clock.restore();
   });
 
   it('should expose state for the single entity convenience', async () => {
-    const clock = useFakeTimers();
+    clock = useFakeTimers();
     element.hass = hass;
     element['entity'] = 'light.bedroom';
 
@@ -108,14 +113,14 @@ describe('SubscribeEntityStateMixin', () => {
       state: 'on',
       attributes: { friendly_name: 'Bedroom Light' },
       last_changed: '1970-01-01T00:00:00.000Z',
+      last_updated: '1970-01-01T00:00:00.000Z',
     });
-    clock.restore();
   });
 
   // --- multi-entity (entities / states) -------------------------------------
 
   it('should subscribe to all entities in one call when connected', async () => {
-    const clock = useFakeTimers();
+    clock = useFakeTimers();
     element.hass = hass;
     element['entities'] = ['light.bedroom', 'light.kitchen'];
 
@@ -129,11 +134,10 @@ describe('SubscribeEntityStateMixin', () => {
       'light.bedroom',
       'light.kitchen',
     ]);
-    clock.restore();
   });
 
   it('should populate states for each entity on subscribe', async () => {
-    const clock = useFakeTimers();
+    clock = useFakeTimers();
     element.hass = hass;
     element['entities'] = ['light.bedroom', 'light.kitchen'];
 
@@ -168,18 +172,19 @@ describe('SubscribeEntityStateMixin', () => {
       state: 'on',
       attributes: { friendly_name: 'Bedroom Light' },
       last_changed: '1970-01-01T00:00:00.000Z',
+      last_updated: '1970-01-01T00:00:00.000Z',
     });
     expect(element['states']['light.kitchen']).to.deep.equal({
       entity_id: 'light.kitchen',
       state: 'off',
       attributes: { friendly_name: 'Kitchen Light' },
       last_changed: '1970-01-01T00:00:00.000Z',
+      last_updated: '1970-01-01T00:00:00.000Z',
     });
-    clock.restore();
   });
 
   it('should compose entity and entities, de-duping overlap', async () => {
-    const clock = useFakeTimers();
+    clock = useFakeTimers();
     element.hass = hass;
     element['entity'] = 'light.bedroom';
     element['entities'] = ['light.bedroom', 'light.kitchen'];
@@ -194,11 +199,10 @@ describe('SubscribeEntityStateMixin', () => {
       'light.kitchen',
     ]);
     expect(capturedMessage!.entity_ids).to.have.lengthOf(2);
-    clock.restore();
   });
 
   it('should drop an entity and its state when removed from entities', async () => {
-    const clock = useFakeTimers();
+    clock = useFakeTimers();
     element.hass = hass;
     element['entities'] = ['light.bedroom', 'light.kitchen'];
 
@@ -222,7 +226,6 @@ describe('SubscribeEntityStateMixin', () => {
 
     expect(element['states']).to.have.property('light.bedroom');
     expect(element['states']).to.not.have.property('light.kitchen');
-    clock.restore();
   });
 
   // --- guards & teardown ----------------------------------------------------
@@ -244,7 +247,7 @@ describe('SubscribeEntityStateMixin', () => {
   });
 
   it('should reset states on disconnect', async () => {
-    const clock = useFakeTimers();
+    clock = useFakeTimers();
     element.hass = hass;
     element['entities'] = ['light.bedroom'];
 
@@ -261,6 +264,5 @@ describe('SubscribeEntityStateMixin', () => {
     element.disconnectedCallback();
 
     expect(element['states']).to.deep.equal({});
-    clock.restore();
   });
 });

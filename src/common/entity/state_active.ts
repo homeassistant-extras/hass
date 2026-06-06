@@ -8,7 +8,7 @@ import { computeDomain } from './compute_domain';
 
 export function stateActive(stateObj: HassEntity, state?: string): boolean {
   const domain = computeDomain(stateObj.entity_id);
-  const compareState = state !== undefined ? state : stateObj?.state;
+  const compareState = state ?? stateObj?.state;
 
   if (
     [
@@ -52,7 +52,8 @@ export function stateActive(stateObj: HassEntity, state?: string): boolean {
     case 'lock':
       return compareState !== 'locked';
     case 'media_player':
-      return compareState !== 'standby';
+      // Upstream treats paused as active; cards treat paused like standby (inactive).
+      return !['standby', 'paused'].includes(compareState);
     case 'vacuum':
       return !['idle', 'docked', 'paused'].includes(compareState);
     case 'valve':

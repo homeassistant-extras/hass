@@ -4,9 +4,11 @@ import {
   OFF_STATES,
   ON,
   UNAVAILABLE,
+  UNAVAILABLE_STATES,
   UNKNOWN,
   isOffState,
-} from '../../src/data/entity/entity';
+  isUnavailableState,
+} from '../../src/data/entity';
 
 describe('entity.ts', () => {
   describe('Constants', () => {
@@ -17,8 +19,31 @@ describe('entity.ts', () => {
       expect(OFF).to.equal('off');
     });
 
+    it('should define UNAVAILABLE_STATES correctly', () => {
+      expect(UNAVAILABLE_STATES).to.deep.equal(['unavailable', 'unknown']);
+    });
+
     it('should define OFF_STATES correctly', () => {
       expect(OFF_STATES).to.deep.equal(['unavailable', 'unknown', 'off']);
+    });
+  });
+
+  describe('isUnavailableState', () => {
+    it('should return true for unavailable states', () => {
+      expect(isUnavailableState(UNAVAILABLE)).to.be.true;
+      expect(isUnavailableState(UNKNOWN)).to.be.true;
+    });
+
+    it('should return false for available states', () => {
+      expect(isUnavailableState(ON)).to.be.false;
+      expect(isUnavailableState(OFF)).to.be.false;
+      expect(isUnavailableState('any_other_state')).to.be.false;
+    });
+
+    it('should handle edge cases', () => {
+      expect(isUnavailableState('')).to.be.false;
+      expect(isUnavailableState(null)).to.be.false;
+      expect(isUnavailableState(undefined)).to.be.false;
     });
   });
 

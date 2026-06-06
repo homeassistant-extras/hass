@@ -26,7 +26,7 @@ describe('device.ts', () => {
       localize: () => '',
       callWS: () => undefined as never,
       connection: {} as HomeAssistant['connection'],
-    };
+    } as unknown as HomeAssistant;
   });
 
   describe('getDevice', () => {

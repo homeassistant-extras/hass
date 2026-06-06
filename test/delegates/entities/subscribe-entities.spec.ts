@@ -15,6 +15,7 @@ describe('subscribe-entities', () => {
         a: { brightness: 128 },
         c: '',
         lc: 0,
+        lu: 0,
       });
       expect(result.entity_id).to.equal('light.kitchen');
       expect(result.state).to.equal('on');
@@ -26,6 +27,7 @@ describe('subscribe-entities', () => {
         s: '42',
         c: '',
         lc: 0,
+        lu: 0,
       } as HassEntityState);
       expect(result.attributes).to.deep.equal({});
     });
@@ -63,6 +65,7 @@ describe('subscribe-entities', () => {
       state: 'off',
       attributes: { brightness: 100 },
       last_changed: '1970-01-01T00:00:00.000Z',
+      last_updated: '1970-01-01T00:00:00.000Z',
     });
 
     it('updates state from add.s', () => {

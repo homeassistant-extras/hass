@@ -22,16 +22,23 @@ export type HassServiceTarget = {
   device_id?: string | string[];
 };
 
-export type HassEntityAttributeBase = {
-  friendly_name?: string;
-  [key: string]: unknown;
-};
-
-export type HassEntity = {
+export type HassEntityBase = {
   entity_id: string;
   state: string;
-  attributes: HassEntityAttributeBase;
   last_changed: string;
+  last_updated: string;
+  attributes: HassEntityAttributeBase;
+};
+
+export type HassEntityAttributeBase = {
+  friendly_name?: string;
+  unit_of_measurement?: string;
+  device_class?: string;
+  state_class?: string;
+};
+
+export type HassEntity = HassEntityBase & {
+  attributes: { [key: string]: unknown };
 };
 
 export type HassEntities = { [entity_id: string]: HassEntity };

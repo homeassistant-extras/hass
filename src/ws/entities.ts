@@ -15,7 +15,7 @@ export interface EntityState {
   /** last_changed; if set, also applies to lu */
   lc: number;
   /** last_updated */
-  lu?: number;
+  lu: number;
 }
 
 interface EntityStateRemove {
