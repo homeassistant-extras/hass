@@ -1,8 +1,8 @@
-import type { HomeAssistant } from '@homeassistant-extras/hass/types';
 import { fixture } from '@open-wc/testing-helpers';
 import { expect } from 'chai';
 import { nothing, type TemplateResult } from 'lit';
 import { renderHumidifierBadge } from '../../../../../../src/panels/lovelace/cards/tile/badges/tile-badge-humidifier';
+import type { HomeAssistant } from '../../../../../../src/types';
 import { createState as s } from '../../../../../test-helpers';
 
 describe('tile-badge-humidifier.ts', () => {

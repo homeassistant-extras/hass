@@ -1,7 +1,7 @@
-import type { HomeAssistant } from '@homeassistant-extras/hass/types';
 import { expect } from 'chai';
 import { restore, type SinonStub, stub } from 'sinon';
 import { setValue } from '../../src/data/input_text';
+import type { HomeAssistant } from '../../src/types';
 
 describe('input_text.ts', () => {
   let mockHass: HomeAssistant;

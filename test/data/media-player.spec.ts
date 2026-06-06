@@ -1,7 +1,7 @@
-import type { HomeAssistant } from '@homeassistant-extras/hass/types';
 import { expect } from 'chai';
 import { restore, type SinonStub, stub } from 'sinon';
 import { setMediaPlayerVolume } from '../../src/data/media-player';
+import type { HomeAssistant } from '../../src/types';
 
 describe('media-player.ts', () => {
   let mockHass: HomeAssistant;

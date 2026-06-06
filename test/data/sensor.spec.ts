@@ -1,6 +1,6 @@
-import type { HomeAssistant } from '@homeassistant-extras/hass/types';
 import { expect } from 'chai';
 import { getSensorNumericDeviceClasses } from '../../src/data/sensor';
+import type { HomeAssistant } from '../../src/types';
 
 const numericDeviceClasses = {
   numeric_device_classes: [

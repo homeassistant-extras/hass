@@ -1,6 +1,6 @@
-import { HassEntity } from '@homeassistant-extras/hass/ws/types';
 import { expect } from 'chai';
 import { computeGroupDomain, type GroupEntity } from '../../src/data/group';
+import { HassEntity } from '../../src/ws/types';
 import { createState as s } from '../test-helpers';
 
 describe('group.ts', () => {

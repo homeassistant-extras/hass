@@ -1,10 +1,10 @@
-import type { HomeAssistant } from '@homeassistant-extras/hass/types';
 import { expect } from 'chai';
 import { stub } from 'sinon';
 import {
   isMediaSourceContentId,
   resolveMediaSource,
 } from '../../src/data/media_source';
+import type { HomeAssistant } from '../../src/types';
 
 describe('media_source.ts', () => {
   let mockHass: HomeAssistant;

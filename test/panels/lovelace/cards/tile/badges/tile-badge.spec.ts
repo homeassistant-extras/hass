@@ -1,9 +1,9 @@
-import type { HomeAssistant } from '@homeassistant-extras/hass/types';
 import { fixture } from '@open-wc/testing-helpers';
 import { expect } from 'chai';
 import { nothing, type TemplateResult } from 'lit';
 import { UNAVAILABLE, UNKNOWN } from '../../../../../../src/data/entity';
 import { renderTileBadge } from '../../../../../../src/panels/lovelace/cards/tile/badges/tile-badge';
+import type { HomeAssistant } from '../../../../../../src/types';
 import { createState as s } from '../../../../../test-helpers';
 
 describe('tile-badge.ts', () => {
