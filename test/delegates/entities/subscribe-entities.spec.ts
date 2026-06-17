@@ -31,6 +31,27 @@ describe('subscribe-entities', () => {
       } as HassEntityState);
       expect(result.attributes).to.deep.equal({});
     });
+
+    it('derives last_updated from lu when present', () => {
+      const result = compressedToEntityState('light.kitchen', {
+        s: 'on',
+        c: '',
+        lc: 1000,
+        lu: 2000,
+      } as HassEntityState);
+      expect(result.last_changed).to.equal('1970-01-01T00:16:40.000Z');
+      expect(result.last_updated).to.equal('1970-01-01T00:33:20.000Z');
+    });
+
+    it('falls back to last_changed when lu is undefined', () => {
+      const result = compressedToEntityState('light.kitchen', {
+        s: 'on',
+        c: '',
+        lc: 1000,
+      } as HassEntityState);
+      expect(result.last_changed).to.equal('1970-01-01T00:16:40.000Z');
+      expect(result.last_updated).to.equal(result.last_changed);
+    });
   });
 
   describe('isMeaningfulChange', () => {

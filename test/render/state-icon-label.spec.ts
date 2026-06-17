@@ -25,7 +25,8 @@ describe('state-icon-label render helpers', () => {
     });
 
     const helpers: CardHelpers = {
-      createRowElement: stub().returns(document.createElement('div')),
+      createCardElement: stub(),
+      createRowElement: stub(),
       createHuiElement: mockCreateHuiElement,
     };
     setPoatCardHelpers(helpers);

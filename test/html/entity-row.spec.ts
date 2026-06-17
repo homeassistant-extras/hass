@@ -19,8 +19,9 @@ describe('entityRow', () => {
     mockCreateRowElement = stub().returns(mockElement);
 
     const helpers: CardHelpers = {
+      createCardElement: stub(),
       createRowElement: mockCreateRowElement,
-      createHuiElement: stub().returns(document.createElement('div')),
+      createHuiElement: stub(),
     };
     globalThis.poatCardHelpers = helpers;
 

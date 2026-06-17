@@ -8,6 +8,7 @@
 import type { HomeAssistant } from '../../../types';
 import type { StatesUpdates } from '../../../ws/entities';
 import type { HassEntity } from '../../../ws/types';
+import { getState } from '../../retrievers/state';
 import { ResubscribeScheduler } from './resubscribe-scheduler';
 import { StatesEventHandler, type Listener } from './states-event-handler';
 
@@ -61,6 +62,8 @@ export class EntitySubscriptionManager {
       this._scheduleResubscribe();
     }
 
+    this._deliverInitialState(entityId, onChange);
+
     return () => {
       const s = this._listeners.get(entityId);
       if (!s) return;
@@ -110,5 +113,24 @@ export class EntitySubscriptionManager {
 
   private _handleEvent(ev: StatesUpdates): void {
     this._eventHandler.handle(ev);
+  }
+
+  /**
+   * Push current known state to a listener immediately. Required when multiple
+   * elements subscribe to the same entity: only the first subscription
+   * triggers subscribe_entities, so later listeners would otherwise stay empty
+   * until the next websocket change. Falls back to the `hass.states` snapshot
+   * so even the first listener gets a value without waiting for the debounced
+   * resubscribe round-trip.
+   */
+  private _deliverInitialState(entityId: string, onChange: Listener): void {
+    let state = this._state.get(entityId);
+    if (!state) {
+      state = getState(this._hass, entityId);
+      if (state) {
+        this._state.set(entityId, state);
+      }
+    }
+    onChange(state);
   }
 }

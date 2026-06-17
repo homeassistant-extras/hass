@@ -100,4 +100,46 @@ describe('EntitySubscriptionManager', () => {
     });
     clock.restore();
   });
+
+  it('delivers current state immediately to every new listener (multi-element)', () => {
+    const hass = {
+      connection: { subscribeMessage: () => Promise.resolve(() => {}) },
+      states: {
+        'light.x': {
+          entity_id: 'light.x',
+          state: 'on',
+          attributes: {},
+          last_changed: '',
+          last_updated: '',
+        },
+      },
+    } as unknown as HomeAssistant;
+
+    const manager = getEntitySubscriptionManager(hass);
+    const statesA: string[] = [];
+    const statesB: string[] = [];
+
+    // Only the first subscription triggers subscribe_entities; the second
+    // listener must still get the cached state synchronously, not stay empty
+    // until the next websocket push.
+    manager.subscribe('light.x', (s) => statesA.push(s?.state ?? 'undefined'));
+    manager.subscribe('light.x', (s) => statesB.push(s?.state ?? 'undefined'));
+
+    expect(statesA).to.deep.equal(['on']);
+    expect(statesB).to.deep.equal(['on']);
+  });
+
+  it('delivers undefined initially when the entity is unknown', () => {
+    const hass = {
+      connection: { subscribeMessage: () => Promise.resolve(() => {}) },
+      states: {},
+    } as unknown as HomeAssistant;
+
+    const manager = getEntitySubscriptionManager(hass);
+    const received: (string | undefined)[] = [];
+
+    manager.subscribe('light.missing', (s) => received.push(s?.state));
+
+    expect(received).to.deep.equal([undefined]);
+  });
 });

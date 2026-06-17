@@ -1,3 +1,4 @@
+import type { LovelaceCardConfig } from '../data/lovelace/config/card';
 import type {
   LovelaceElement,
   LovelaceElementConfig,
@@ -6,6 +7,7 @@ import type {
   LovelaceRow,
   LovelaceRowConfig,
 } from '../panels/lovelace/entity-rows/types';
+import type { LovelaceCard } from '../panels/lovelace/types';
 
 declare global {
   var loadCardHelpers: (() => Promise<CardHelpers>) | undefined;
@@ -13,6 +15,7 @@ declare global {
 }
 
 export interface CardHelpers {
+  createCardElement: (config: LovelaceCardConfig) => LovelaceCard;
   createRowElement: (config: LovelaceRowConfig) => LovelaceRow;
   createHuiElement: (config: LovelaceElementConfig) => LovelaceElement;
 }

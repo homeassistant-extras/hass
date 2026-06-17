@@ -15,6 +15,7 @@ describe('state-icon.ts', () => {
       document.createElement('div'),
     );
     setPoatCardHelpers({
+      createCardElement: stub(),
       createRowElement: stub(),
       createHuiElement: mockCreateHuiElement,
     });

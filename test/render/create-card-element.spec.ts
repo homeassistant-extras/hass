@@ -4,40 +4,40 @@ import { stub } from 'sinon';
 import {
   resetPoatCardHelpersForTests,
   setPoatCardHelpers,
+  type CardHelpers,
 } from '../../src/helpers/card-helpers';
-import { createHuiElement } from '../../src/render/create-hui-element';
+import { createCardElement } from '../../src/render/create-card-element';
 import type { HomeAssistant } from '../../src/types';
 
-describe('create-hui-element.ts', () => {
+describe('create-card-element.ts', () => {
   afterEach(() => {
     resetPoatCardHelpersForTests();
   });
 
   it('returns nothing when card helpers are unavailable', () => {
-    const result = createHuiElement({} as HomeAssistant, {
-      type: 'state-icon',
-      entity: 'light.foo',
+    const result = createCardElement({} as HomeAssistant, {
+      type: 'entities',
     });
 
     expect(result).to.equal(nothing);
   });
 
   it('creates element and assigns hass', () => {
-    interface MockHuiElement extends HTMLElement {
+    interface MockCardElement extends HTMLElement {
       hass?: HomeAssistant;
     }
 
     const mockCreate = stub().callsFake(() => document.createElement('div'));
     setPoatCardHelpers({
-      createCardElement: stub(),
+      createCardElement: mockCreate,
       createRowElement: stub(),
-      createHuiElement: mockCreate,
-    });
+      createHuiElement: stub(),
+    } as CardHelpers);
 
     const hass = {} as HomeAssistant;
-    const config = { type: 'state-icon' as const, entity: 'light.foo' };
+    const config = { type: 'entities' };
 
-    const element = createHuiElement(hass, config) as MockHuiElement;
+    const element = createCardElement(hass, config) as MockCardElement;
 
     expect(mockCreate.calledOnceWith(config)).to.be.true;
     expect(element.hass).to.equal(hass);

@@ -18,12 +18,15 @@ export function compressedToEntityState(
   entityId: string,
   comp: HassEntityState,
 ): HassEntity {
+  const last_changed = new Date(comp.lc * 1000).toISOString();
   return {
     entity_id: entityId,
     state: comp.s,
     attributes: comp.a ?? {},
-    last_changed: new Date(comp.lc * 1000).toISOString(),
-    last_updated: new Date(comp.lu * 1000).toISOString(),
+    last_changed,
+    last_updated: comp.lu
+      ? new Date(comp.lu * 1000).toISOString()
+      : last_changed,
   };
 }
 
