@@ -51,7 +51,7 @@
     "@eslint/js": "^10.0.1",
     "@homeassistant-extras/config": "^0.3.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
-    "@open-wc/testing": "^4.0.0",
+    "@open-wc/testing": "^5.0.0",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/chai": "^5.2.3",
     "@types/jsdom": "^28.0.3",
