@@ -55,7 +55,10 @@ export const stateColorCss = (
 ) => {
   const compareState = state ?? stateObj?.state;
   if (compareState === UNAVAILABLE && !active) {
-    return `var(--state-unavailable-color)`;
+    return computeCssVariable([
+      `--state-color-${scope}-theme`,
+      '--state-unavailable-color',
+    ]);
   }
 
   const properties = stateColorProperties(stateObj, scope, active, state);

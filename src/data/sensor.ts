@@ -9,8 +9,7 @@ export interface SensorNumericDeviceClasses {
 }
 
 let sensorNumericDeviceClassesCache:
-  | Promise<SensorNumericDeviceClasses>
-  | undefined;
+  Promise<SensorNumericDeviceClasses> | undefined;
 
 export const getSensorNumericDeviceClasses = async (
   hass: HomeAssistant,

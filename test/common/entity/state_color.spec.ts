@@ -62,9 +62,21 @@ describe('state_color.ts', () => {
   describe('stateColorCss', () => {
     it('should return unavailable color for unavailable state', () => {
       const stateObj = createStateObj('light.test', UNAVAILABLE);
-      expect(stateColorCss(stateObj, 'test')).to.equal(
-        'var(--state-unavailable-color)',
+      computeCssVariableStub.returns(
+        'var(--state-color-test-theme, var(--state-unavailable-color))',
       );
+
+      expect(stateColorCss(stateObj, 'test')).to.equal(
+        'var(--state-color-test-theme, var(--state-unavailable-color))',
+      );
+      // The theme override stays ahead of the unavailable color so a
+      // card-configured color still applies while the entity is unavailable.
+      expect(
+        computeCssVariableStub.calledWith([
+          '--state-color-test-theme',
+          '--state-unavailable-color',
+        ]),
+      ).to.be.true;
     });
 
     it('should not return unavailable color when active is true even if state is unavailable', () => {
@@ -83,8 +95,11 @@ describe('state_color.ts', () => {
     it('should respect provided state parameter over entity state', () => {
       const stateObj = createStateObj('light.test', 'on');
       // When active is false/undefined, unavailable state should return unavailable color
+      computeCssVariableStub.returns(
+        'var(--state-color-test-theme, var(--state-unavailable-color))',
+      );
       expect(stateColorCss(stateObj, 'test', false, UNAVAILABLE)).to.equal(
-        'var(--state-unavailable-color)',
+        'var(--state-color-test-theme, var(--state-unavailable-color))',
       );
       // When active is true, unavailable state should not return unavailable color
       // (allows active state to be shown even when entity is unavailable)

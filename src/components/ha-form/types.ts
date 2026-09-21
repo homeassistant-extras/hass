@@ -9,9 +9,7 @@ import type { Selector } from '../../data/selector';
  * Defaults to `string` so schemas can use HA core keys like `ui.panel...`.
  */
 export type HaFormSchema<L extends string = string> =
-  | HaFormSelector<L>
-  | HaFormGridSchema<L>
-  | HaFormExpandableSchema<L>;
+  HaFormSelector<L> | HaFormGridSchema<L> | HaFormExpandableSchema<L>;
 
 export interface HaFormBaseSchema<L extends string = string> {
   name: string;

@@ -5,13 +5,7 @@
  */
 
 export type IntegrationType =
-  | 'device'
-  | 'helper'
-  | 'hub'
-  | 'service'
-  | 'hardware'
-  | 'entity'
-  | 'system';
+  'device' | 'helper' | 'hub' | 'service' | 'hardware' | 'entity' | 'system';
 
 export interface IntegrationManifest {
   is_built_in: boolean;
