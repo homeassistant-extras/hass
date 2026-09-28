@@ -6,6 +6,7 @@ import type { LocalizeFunc } from './common/translations/localize';
 import type { AreaRegistryEntry } from './data/area/area_registry';
 import type { DeviceRegistryEntry } from './data/device/device_registry';
 import type { EntityRegistryDisplayEntry } from './data/entity/entity_registry';
+import type { FrontendLocaleData } from './data/translation';
 import type { Themes } from './data/ws-themes';
 import type {
   Connection,
@@ -47,6 +48,7 @@ export interface HomeAssistantInternationalization {
   //   - browser language
   //   - english (en)
   language: string;
+  locale: FrontendLocaleData;
   localize: LocalizeFunc;
 }
 
